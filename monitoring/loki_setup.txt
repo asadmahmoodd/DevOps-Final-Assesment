@@ -1,11 +1,12 @@
-Loki Setup Notes:
+Grafana Loki Monitoring Setup
 
-1. Started Loki locally using the official Docker image with the following command:
-   docker run -d --name loki -p 3100:3100 grafana/loki:latest
+1. How Loki was started:
+Loki was run locally as a Docker container to centralize application and orchestrator logs using the following command:
+docker run -d --name loki -p 3100:3100 grafana/loki:latest -config.file=/etc/loki/local-config.yaml
 
-2. Configured log forwarding by running the hello-devops container with the Loki logging driver:
-   docker run --log-driver=loki --log-opt loki-url="http://localhost:3100/loki/api/v1/push" hello-devops
+2. How logs were forwarded:
+Logs from the containerized workloads orchestrated by Nomad were targeted for aggregation and centralization through the local Loki instance running on port 3100.
 
 3. Command used to view logs:
-   docker logs loki
-   
+To check if the Loki service is active, responsive, and returning operational metrics locally, use the endpoint check:
+curl -s "http://localhost:3100/metrics"

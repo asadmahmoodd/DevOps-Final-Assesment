@@ -7,7 +7,8 @@ job "hello-devops" {
       driver = "docker" 
 
       config {
-        image   = "hello-devops:latest" 
+        image   = "hello-devops:a" 
+	force_pull = false
       }
       
       resources {
